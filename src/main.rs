@@ -1,4 +1,5 @@
 use mongodb::{Client, Collection};
+use mongodb::options::FindOptions;
 use rocket::futures::StreamExt;
 use rocket::{serde::json::Json};
 use std::env;
@@ -56,7 +57,12 @@ impl MongoRepo {
     }
 
     pub async fn get_transactions(&self) -> Result<Vec<Document>, Error> {
-        let cursor = self.collection.find(None, None).await.ok();
+        let options = FindOptions::builder().limit(50).sort(
+            doc! {
+                "blockTime": -1
+            }
+        ).build();
+        let cursor = self.collection.find(None, options).await.ok();
 
         let mut cursor = cursor.unwrap();
 
