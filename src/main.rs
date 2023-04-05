@@ -80,11 +80,11 @@ impl MongoRepo {
     }
 }
 
-#[shuttle_runtime::main]
-async fn rocket() -> shuttle_rocket::ShuttleRocket {
+#[tokio::main]
+async fn main() {
     let mongo_repo = MongoRepo::init().await;
 
     let rocket = rocket::build().manage(mongo_repo).mount("/", routes![index]);
 
-    Ok(rocket.into())
+    rocket.launch().await;
 }

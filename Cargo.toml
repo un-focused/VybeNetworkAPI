@@ -7,9 +7,7 @@ publish = false
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-shuttle-runtime = "0.13.0"
 rocket = { version = "0.5.0-rc.3", features = ["json"] }
-shuttle-rocket = "0.13.0"
 tokio = "1.27.0"
 mongodb = "2.4.0"
 dotenv = "0.15.0"
