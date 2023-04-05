@@ -9,10 +9,6 @@ use mongodb::bson::{doc, Document};
 use rocket::http::Status;
 use rocket::{State};
 
-// use mongodb::bson::Document;
-// use rocket::futures::StreamExt;
-// extern crate dotenv;
-
 use dotenv::dotenv;
 
 #[macro_use]
@@ -88,11 +84,6 @@ impl MongoRepo {
 async fn rocket() -> shuttle_rocket::ShuttleRocket {
     let mongo_repo = MongoRepo::init().await;
 
-    // Print the databases in our MongoDB cluster:
-    println!("Databases:");
-    // for name in client.list_database_names(None, None).await? {
-    //     println!("- {}", name);
-    // }
     let rocket = rocket::build().manage(mongo_repo).mount("/", routes![index]);
 
     Ok(rocket.into())
